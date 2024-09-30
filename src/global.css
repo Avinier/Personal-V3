@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-bg: #fffffc;
+    --text-color: #1a1d21;
+    --accent: #ffe0ad;
+    --gray: #eeeae6;
+    --dark-gray: #6c757d;
+  }
+
+  .dark {
+    --primary-bg: #212529;
+    --text-color: #f8f9fa;
+    --gray: #343a40;
+    --dark-gray: #6c757d;
+  }
+
+  @font-face {
+    font-family: 'Kollektif';
+    font-style: normal;
+    font-display: swap;
+    src: url(/fonts/Kollektif.ttf);
+  }
+}
