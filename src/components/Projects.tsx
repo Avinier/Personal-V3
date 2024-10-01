@@ -200,7 +200,7 @@ const projectsArr = [
   
     return (
       <section className="bg-background min-h-screen">
-        <div className="w-[80%] mx-auto">
+        <div className="w-[75%] mx-auto">
           <h1 className="font-heading text-4xl text-text">Projects</h1>
           <h4 className='font-body text-lg italic mb-[50px]'>My projects range from this to that</h4>
           <div className="flex">
