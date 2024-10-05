@@ -54,135 +54,158 @@ const hexToRgb = (hex) => {
   
   const TimelineSlider = ({ years, onChange }) => {
     const [hoveredYear, setHoveredYear] = useState(null);
+    const [clickedYear, setClickedYear] = useState(null);
     const sliderRef = useRef(null);
     const ballY = useMotionValue(0);
     const smoothY = useSpring(ballY, { damping: 20, stiffness: 300 });
   
-    const handleYearChange = useCallback((year) => {
-      setHoveredYear(year);
-      onChange(year);
-    }, [onChange]);
+    const handleYearChange = useCallback((year, isClick = false) => {
+        if (isClick) {
+            setClickedYear(year);
+            onChange(year);
+        } else {
+            setHoveredYear(year);
+            if (!clickedYear) {
+                onChange(year);
+            }
+        }
+    }, [onChange, clickedYear]);
   
     useEffect(() => {
-      const handleMouseMove = (e) => {
-        if (!sliderRef.current) return;
-        const rect = sliderRef.current.getBoundingClientRect();
-        const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-        ballY.set(y);
+        const handleMouseMove = (e) => {
+            if (!sliderRef.current) return;
+            const rect = sliderRef.current.getBoundingClientRect();
+            const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+            ballY.set(y);
   
-        const index = Math.round(y * (years.length - 1));
-        handleYearChange(years[index]);
-      };
+            const index = Math.round(y * (years.length - 1));
+            handleYearChange(years[index]);
+        };
   
-      const handleMouseLeave = () => {
-        setHoveredYear(null);
-        // Reset to 'All' when mouse leaves
-        handleYearChange('All');
-        ballY.set(0); // Reset ball position to top ('All')
-      };
+        const handleMouseLeave = () => {
+            setHoveredYear(null);
+            if (!clickedYear) {
+                handleYearChange('All');
+                ballY.set(0);
+            }
+        };
   
-      const slider = sliderRef.current;
-      if (slider) {
-        slider.addEventListener('mousemove', handleMouseMove);
-        slider.addEventListener('mouseleave', handleMouseLeave);
-      }
+        const handleClick = (e) => {
+            const rect = sliderRef.current.getBoundingClientRect();
+            const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+            ballY.set(y);
   
-      return () => {
+            const index = Math.round(y * (years.length - 1));
+            handleYearChange(years[index], true);
+        };
+  
+        const slider = sliderRef.current;
         if (slider) {
-          slider.removeEventListener('mousemove', handleMouseMove);
-          slider.removeEventListener('mouseleave', handleMouseLeave);
+            slider.addEventListener('mousemove', handleMouseMove);
+            slider.addEventListener('mouseleave', handleMouseLeave);
+            slider.addEventListener('click', handleClick);
         }
-      };
-    }, [years, ballY, handleYearChange]);
+  
+        return () => {
+            if (slider) {
+                slider.removeEventListener('mousemove', handleMouseMove);
+                slider.removeEventListener('mouseleave', handleMouseLeave);
+                slider.removeEventListener('click', handleClick);
+            }
+        };
+    }, [years, ballY, handleYearChange, clickedYear]);
   
     const ballPosition = useTransform(smoothY, [0, 1], ['0%', '100%']);
   
     return (
-      <div className="h-full flex items-center justify-center relative" ref={sliderRef}>
-        <div className="h-64 w-1 bg-gray-300 rounded-full relative cursor-pointer">
-          <motion.div
-            className="w-4 h-4 bg-black rounded-full absolute left-1/2 transform -translate-x-1/2"
-            style={{ top: ballPosition }}
-          />
+        <div className="h-full flex items-center justify-center relative" ref={sliderRef}>
+            <div className="h-64 w-1 bg-gray-300 rounded-full relative cursor-pointer">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[3px] rounded-full h-full bg-gray" />
+                {years.map((year, index) => (
+                    <div
+                        key={year}
+                        className="w-3 h-3 bg-background border-2 border-gray rounded-full absolute left-1/2 transform -translate-x-1/2"
+                        style={{ top: `${(index / (years.length - 1)) * 100}%` }}
+                    />
+                ))}
+                <motion.div
+                    className="w-4 h-4 bg-black rounded-full absolute left-1/2 transform -translate-x-1/2"
+                    style={{ top: ballPosition }}
+                />
+            </div>
+            <AnimatePresence>
+                {(hoveredYear || clickedYear) && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute left-10 text-[15px] text-text font-heading pointer-events-none whitespace-nowrap"
+                        style={{ 
+                            top: ballPosition, 
+                            transform: 'translateY(-50%)'
+                        }}
+                    >
+                        {hoveredYear || clickedYear}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
-        <AnimatePresence>
-          {hoveredYear && (
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.2 }}
-              className="absolute left-6 text-lg font-bold pointer-events-none"
-              style={{ top: ballPosition }}
-            >
-              {hoveredYear}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
     );
-  };
+};
   
 
 const projectsArr = [
     {
       name: "SuperServer.AI",
-      desc: "my startup i've been working on",
+      desc: "My startup i've been working on",
       github: "https://quantumsenses.com/",
       color: "#ff0000",
       year: 2024
     },
     {
       name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
+      desc: "My own implementations of the Fastai Practical Deep Learning Course",
       github: "https://github.com/Avinier/FastAI-Implementations",
       color: "#00ff00",
       year: 2023
     },
     {
-      name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
+      name: "Aviniercore AI Asset-Generator",
+      desc: "Fine-tuned Diffusion model to make my own design genre assets",
       github: "https://github.com/Avinier/FastAI-Implementations",
       color: "#0000ff",
+      year: 2024
+    },
+    {
+      name: "IronManIt - AR/VR Project",
+      desc: "a computer vison + 3d design project for fun",
+      github: "https://github.com/Avinier/FastAI-Implementations",
+      color: "#444",
+      year: 2024
+    },
+    {
+      name: "E-minor",
+      desc: "An NFT Marketplace for Music Lovers",
+      github: "https://github.com/Avinier/E-minor",
+      color: "#444",
       year: 2023
     },
     {
-      name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
-      github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#444",
-      year: 2022
-    },
-    {
-      name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
-      github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#444",
-      year: 2023
-    },
-    {
-      name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
-      github: "https://github.com/Avinier/FastAI-Implementations",
+      name: "Game of Life",
+      desc: "A react based site which is a simulation of Conaway's Game of Life",
+      github: "https://github.com/Avinier/Game-of-Life",
       color: "#444",
       year: 2022
     },
     
     {
-      name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
-      github: "https://github.com/Avinier/FastAI-Implementations",
+      name: "RPSLS Game - React",
+      desc: "A game inpsired from the sitcom The Big Bang Theory",
+      github: "https://github.com/Avinier/RPSLS-Game",
       color: "#444",
-      year: 2024
-    },
-    {
-      name: "FastAI Self-Implementations",
-      desc: "my self implementations of fastai",
-      github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#444",
-      year: 2024
-    },
-  
+      year: 2022
+    },  
   ];
 
   const Projects = () => {

@@ -7,7 +7,7 @@ export default {
       colors: {
         text: 'var(--text-color)',
         background: 'var(--primary-bg)',
-        accent: 'var(--acent)',
+        accent: 'var(--accent)',
         gray: 'var(--gray)',
         darkgray: 'var(--dark-gray)'
       },

@@ -22,23 +22,23 @@ const Hero: React.FC = () => {
       />
     </h1>
     <h4 className='font-body text-lg italic mb-[50px]'>I'm on a quest to become a master craftsman blah blah blah</h4>
-    <div className="grid grid-cols-3 gap-6 text-text font-body text-lg">
-        <div className="space-y-2">
+    <div className="grid grid-cols-3 gap-10 text-text font-body text-lg">
+        <div className="space-y-2 text-justify">
           <p>
-            I'm an engineer & designer focused on PCB development and mechatronics. I'm currently based in Los Angeles, building in the logic design space.
+            I'm a cse student and builder focused on deep learning and software dev and design. I'm based in Mumbai, studying in NMIMS University.
           </p>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 text-justify">
           <p>
-            I'm a student at the USC Iovine and Young Academy studying engineering, design, and venture management, and a graduate of the Fab Academy.
+            I'm currently working on my startup <a href="https://site.quantumsenses.com" className='underline'>SuperServerAI</a> with my frnds, along with several personal projects in ai/dl space.
           </p>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 text-justify">
           <p>
-            This site holds my <a href="#" className="underline">work</a> and <a href="#" className="underline">writings</a>.
+            Check out my <a href="https://github.com/Avinier?tab=repositories" className="underline">work</a> and <a href="#" className="underline">writings</a>.
           </p>
           <p>
-            See more on my <a href="#" className="underline">resume</a> or contact me at <a href="mailto:tawarner@usc.edu" className="underline">tawarner@usc.edu</a>.
+            See more on my <a href="#" className="underline">resume</a> or contact me at <a href="mailto:avinierone@gmail.com" className="underline">avinierone@gmail.com</a>.
           </p>
         </div>
       </div>
