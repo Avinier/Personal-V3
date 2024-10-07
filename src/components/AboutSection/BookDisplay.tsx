@@ -5,20 +5,23 @@ export default function BookDisplay() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="relative w-[200px]">
-      {isHovered && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute -top-8 left-0 w-full text-lg font-body text-slate-400"
-        >
-          This is what I've been reading
-        </motion.div>
-      )}
-      <div 
+    <div className="relative w-[300px]">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
+        className="absolute -top-10 left-20 w-full text-lg font-body text-slate-400 text-center"
+      >
+        This is what I've been reading
+      </motion.div>
+      <motion.div 
         className="relative h-[160px] cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        animate={{
+          border: isHovered ? '2px solid #e2e8f0' : '2px solid transparent',
+          borderRadius: '8px'
+        }}
+        transition={{ duration: 0.3 }}
       >
         {/* Book covers */}
         <div className="absolute inset-0 flex items-center justify-center">
@@ -60,7 +63,7 @@ export default function BookDisplay() {
             />
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

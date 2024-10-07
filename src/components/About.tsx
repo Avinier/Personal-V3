@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SpotifyNowPlaying from "./AboutSection/SpotifyNowPlaying";
 import SkillsGrid from "./AboutSection/SkillSquare";
 import BookDisplay from "./AboutSection/BookDisplay";
+import AchievementsBoard from "./AboutSection/AchievementsBoard";
+import TweetEmbedContainer from "./AboutSection/TweetEmbed";
 
 interface Quote {
   text: string;
@@ -140,6 +142,12 @@ const About: React.FC = () => {
           </div>
           <div className="absolute right-[75%] top-0">
             <BookDisplay/>
+          </div>
+          <div className="absolute left-[50%] top-[75%]">
+            <AchievementsBoard/>
+          </div>
+          <div className="absolute bottom-0 right-0">
+            <TweetEmbedContainer/>
           </div>
         </div>
       </div>

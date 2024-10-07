@@ -1,0 +1,27 @@
+.tweetContainer {
+  width: 300px;
+  height: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tweetContainer::-webkit-scrollbar {
+  width: 1px;
+  background-color: transparent;
+}
+
+.tweetContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tweetContainer::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.twitterTweetWrapper {
+  width: 100%;
+}
+
+.twitterTweetWrapper iframe {
+  width: 100% !important;
+}

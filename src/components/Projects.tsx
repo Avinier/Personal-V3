@@ -23,11 +23,11 @@ const hexToRgb = (hex) => {
   
     const dynamicBoxShadow = isHovered
       ? `rgba(${rgbColor}, 0.1) 0px 1px 1px 0px inset, rgba(${rgbColor}, 0.25) 0px 50px 100px -20px, rgba(${rgbColor}, 0.3) 0px 30px 60px -30px`
-      : `rgba(${rgbColor}, 0.2) 0px 1px 3px 0px`;
+      : ``;
   
     return (
       <div
-        className="bg-gray p-6 cursor-pointer"
+        className="bg-gray p-6 cursor-pointer relative"
         style={{
           boxShadow: dynamicBoxShadow,
           transition: 'box-shadow 0.3s ease',
@@ -36,6 +36,11 @@ const hexToRgb = (hex) => {
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => window.open(project.github, '_blank')}
       >
+        <img
+          src="https://img.icons8.com/?size=100&id=hUqP035cA2Bd&format=png&color=6C757D"
+          alt="Link"
+          className="absolute top-2 right-2 w-4 h-4"
+        />
         <h3 className="text-lg text-text font-heading mb-2">{project.name}</h3>
         <p className="text-darkgray font-body">{project.desc}</p>
       </div>
@@ -160,42 +165,42 @@ const projectsArr = [
       name: "SuperServer.AI",
       desc: "My startup i've been working on",
       github: "https://quantumsenses.com/",
-      color: "#ff0000",
+      color: "#ffbb00",
       year: 2024
     },
     {
       name: "FastAI Self-Implementations",
       desc: "My own implementations of the Fastai Practical Deep Learning Course",
       github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#00ff00",
+      color: "#ff006f",
       year: 2023
     },
     {
       name: "Aviniercore AI Asset-Generator",
       desc: "Fine-tuned Diffusion model to make my own design genre assets",
       github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#0000ff",
+      color: "#00ff33",
       year: 2024
     },
     {
       name: "IronManIt - AR/VR Project",
       desc: "a computer vison + 3d design project for fun",
       github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#444",
+      color: "#00ff33",
       year: 2024
     },
     {
       name: "E-minor",
       desc: "An NFT Marketplace for Music Lovers",
       github: "https://github.com/Avinier/E-minor",
-      color: "#444",
+      color: "#00b7ff",
       year: 2023
     },
     {
       name: "Game of Life",
       desc: "A react based site which is a simulation of Conaway's Game of Life",
       github: "https://github.com/Avinier/Game-of-Life",
-      color: "#444",
+      color: "#00b7ff",
       year: 2022
     },
     
@@ -203,7 +208,7 @@ const projectsArr = [
       name: "RPSLS Game - React",
       desc: "A game inpsired from the sitcom The Big Bang Theory",
       github: "https://github.com/Avinier/RPSLS-Game",
-      color: "#444",
+      color: "#00b7ff",
       year: 2022
     },  
   ];
@@ -222,15 +227,18 @@ const projectsArr = [
     }, [selectedYear]);
   
     return (
-      <section className="bg-background min-h-screen">
-        <div className="w-[75%] mx-auto">
-          <h1 className="font-heading text-4xl text-text">Projects</h1>
-          <h4 className='font-body text-lg italic mb-[50px]'>My projects range from this to that</h4>
-          <div className="flex">
-            <div className="flex-grow mr-8 min-h-[100%]">
+      <section className="bg-background min-h-screen py-8 md:py-12">
+        <div className="w-[90%] md:w-[75%] mx-auto">
+          <h1 className="font-heading text-3xl md:text-4xl text-text mb-2">Projects</h1>
+          <h4 className='font-body text-base md:text-lg italic mb-6 md:mb-[50px]'>My projects range from this to that</h4>
+          <div className="md:hidden mb-8">
+            <TimelineSlider years={years} onChange={setSelectedYear} />
+          </div>
+          <div className="flex flex-col md:flex-row">
+            <div className="flex-grow md:mr-8">
               <ProjectsGrid projects={projects} />
             </div>
-            <div className="w-16 h-fit mt-20">
+            <div className="hidden md:block w-16 h-fit mt-20">
               <TimelineSlider years={years} onChange={setSelectedYear} />
             </div>
           </div>
@@ -240,4 +248,3 @@ const projectsArr = [
   };
   
   export default Projects;
-  

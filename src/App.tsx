@@ -1,32 +1,38 @@
 //TODO:
 // ai generated logo + assets [+++]
 // copywriting. [+++]
-// projects.tsx colors [+]
 // about section [+++]
-// - achievements board, current reads, arrangement 
+// - achievements board, arrangement 
 //grainy background fix [++]
 //make everything responsive [+++]
 //spotify nowplaying [++]
-// navbar routing [++]
+// darkmode [++]
 
 import React from 'react';
-import Hero from 'components/Hero';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from 'components/Header';
-import Projects from 'components/Projects';
-import About from 'components/About';
-import Epilogue from 'components/Epilogue';
 import Footer from 'components/Footer';
+import Home from 'routes/home';
+import About from 'routes/about';
+import Writings from 'routes/writings';
+import Contact from 'routes/contact';
 
 const App: React.FC = () => {
   return (
-    <>
-    <Header/>
-    <Hero/>
-    <About/>
-    <Projects/>
-    <Epilogue/>
-    <Footer/>
-    </>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/writings" element={<Writings />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
