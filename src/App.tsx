@@ -5,7 +5,6 @@
 // - achievements board, arrangement 
 //grainy background fix [++]
 //make everything responsive [+++]
-//spotify nowplaying [++]
 // darkmode [++]
 
 import React from 'react';

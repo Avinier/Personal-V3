@@ -22,11 +22,11 @@ const LAST_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-play
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 
 // Environment variables
-const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-const REFRESH_TOKEN = process.env.REACT_APP_SPOTIFY_REFRESH_TOKEN;
-const UPDATE_INTERVAL = 60000; // Update every minute
-
+const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
+const REFRESH_TOKEN = import.meta.env.VITE_SPOTIFY_REFRESH_TOKEN;
+const UPDATE_INTERVAL = 60000*60; //every hour
+const SAMPLE_ACCESS_TOKEN ="BQBOL1vMvhUtr3lXvpbCRPClbz6oAWDKLAkTVo5Z_YzG9uHZOTfZsV1-8-IyTwuUnORgWPielkWdT9hjq4eoy2z9B30WIZrWMwAKtfMHJbfH70V7EL9tUCty5OuN1LBbX54_kBHRvVeHV13NSb6_LM2eA5uc4BTE1Xly-ke0HUy4dmvjBUzJdtK3e2mHCLQEzwnIaon-bYULFQmuCydZ7VOqG4bVe1p4GSldGbszZLMGqcqE55FAr86XvrTZrL3rjPfBM52a6rqXJ1USbFF_EHNts9_zteo4MA46Jda6igUFJiD-RW3X79uE4OITRng3zOKw7lpgsUrWJqQoKA7fPPN9tqMq"
 const getAccessToken = async () => {
   const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
 

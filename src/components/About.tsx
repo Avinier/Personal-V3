@@ -133,7 +133,9 @@ const About: React.FC = () => {
             {isSSAIHovered && <p className="font-body text-slate-400 text-md mb-1 text-center">Something I'm working on with my frnds</p>}
             <img src="/superserverai-logo.png" className="w-full h-full object-contain" alt="more work"/>
           </div>
-          {/* <SpotifyNowPlaying/> */}
+          <div className="absolute left-[20%] bottom-[100%]">
+            <SpotifyNowPlaying/>
+          </div>
           <div className="absolute left-[50%] bottom-[10%]">
             <QuoteBlock/>
           </div>
