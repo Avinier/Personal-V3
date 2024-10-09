@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from 'styles/about.module.css';
 
 const TweetEmbedContainer = () => {

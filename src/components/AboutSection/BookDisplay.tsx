@@ -9,7 +9,7 @@ export default function BookDisplay() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
-        className="absolute -top-10 left-20 w-full text-lg font-body text-slate-400 text-center"
+        className="w-full text-lg font-body text-slate-400 text-center"
       >
         This is what I've been reading
       </motion.div>
@@ -25,14 +25,14 @@ export default function BookDisplay() {
       >
         {/* Book covers */}
         <div className="absolute inset-0 flex items-center justify-center">
-          {/* Default (center) book */}
+          {/* Center (main) book */}
           <img
             src="/miyamotobook.jpeg"
             alt="Book 1"
             className="relative h-[150px] w-[100px] rounded shadow-lg z-10"
           />
           
-          {/* Right sliding books */}
+          {/* Right sliding book */}
           <motion.div
             className="absolute z-20"
             animate={{
@@ -48,10 +48,11 @@ export default function BookDisplay() {
             />
           </motion.div>
           
+          {/* Left sliding book */}
           <motion.div
-            className="absolute z-30"
+            className="absolute z-20"
             animate={{
-              x: isHovered ? 180 : 0,
+              x: isHovered ? -90 : 0,
               opacity: isHovered ? 1 : 0,
             }}
             transition={{ duration: 0.3, delay: 0.1 }}

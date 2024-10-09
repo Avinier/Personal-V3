@@ -197,7 +197,7 @@ const SpotifyNowPlaying: React.FC = () => {
         <div className="flex-grow min-w-0 h-full flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex-grow min-w-0">
-              <h3 className="text-[15px] font-medium text-white font-heading truncate leading-tight">
+              <h3 className="text-[15px] font-medium text-white font-body truncate leading-tight">
                 {trackData.title}
               </h3>
               <p className="text-[10px] text-slate-200 font-heading truncate mt-0.5">
@@ -225,7 +225,7 @@ const SpotifyNowPlaying: React.FC = () => {
                 style={{ width: `${(trackData.timePlayed / trackData.timeTotal) * 100}%` }}
               />
             </div>
-            <div className="flex justify-between mt-1 text-[8px] font-heading text-slate-200">
+            <div className="flex justify-between mt-1 text-[8px] font-body text-slate-200">
               <span>{pad(minutesPlayed)}:{pad(secondsPlayed % 60)}</span>
               <span>{pad(minutesTotal)}:{pad(secondsTotal % 60)}</span>
             </div>

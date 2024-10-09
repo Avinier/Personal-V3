@@ -5,7 +5,7 @@ import BookDisplay from "./AboutSection/BookDisplay";
 import AchievementsBoard from "./AboutSection/AchievementsBoard";
 import TweetEmbedContainer from "./AboutSection/TweetEmbed";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Quote {
   text: string;
@@ -13,15 +13,24 @@ interface Quote {
 }
 
 const quotes: Quote[] = [
-  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-  { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
-  { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-  { text: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
-  { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+  { text: "I can accept faliure, but I can't accept not trying.", author: "Micheal Jordan" },
+  { text: "The most personal is the most creative.", author: "Martin Scorsese" },
+  { text: "You gotta be the champ before you become the champ.", author: "Mike Tyson" },
+  { text: "I don't know shit, neither does anyone.", author: "Tim Urban" },
+  { text: "The only sign of intelligence is that you get what you want in life.", author: "Naval" },
+  { text: "It isn't about how hard you hit, it's about how hard you get hit and keep moving forward.", author: "Rocky Balboa" },
+  { text: "I know what I like, and don't like. And I'm decisive about what I like and don't like.", author: "Rick Rubin" },
+  { text: "If you are a fan of Kanye West, you are a fan of yourself.", author: "Kanye West" },
+  { text: "Everything I'm not made me everything I am.", author: "Kanye West" },
+  { text: "All truly strong people are kind.", author: "Takuan, Vagabond" },
+  { text: "This man is gazing up at something that I can't even see.", author: "Levi to Erwin"}
+
+
 ];
 
 const QuoteBlock: React.FC = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
+  const [key, setKey] = useState(0); 
 
   const getRandomQuote = () => {
     const randomIndex = Math.floor(Math.random() * quotes.length);
@@ -29,13 +38,22 @@ const QuoteBlock: React.FC = () => {
   };
 
   useEffect(() => {
+    // Initial quote
     setQuote(getRandomQuote());
+
+    // Set up interval to change quote every 30 seconds
+    const interval = setInterval(() => {
+      setKey(prevKey => prevKey + 1); // Change key to trigger animation
+      setQuote(getRandomQuote());
+    }, 7500);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (!quote) return null;
 
   return (
-    <div className="w-[300px] px-5 pt-2 pb-0 border-l-4 border-text rounded-md cursor-pointer hover:bg-[#eeeae67d]">
+    <div className="w-[300px] h-max-[120px] px-5 pt-2 pb-0 border-l-4 border-text rounded-md cursor-pointer hover:bg-[#eeeae67d]">
       <div className="flex space-x-4">
         <div className="flex-shrink-0">
           <svg className="h-8 w-8 text-text" fill="currentColor" viewBox="0 0 24 24">
@@ -43,8 +61,18 @@ const QuoteBlock: React.FC = () => {
           </svg>
         </div>
         <div className="flex-grow">
-          <p className="text-lg font-body text-text mb-2 text-justify leading-5">{quote.text}</p>
-          <p className="text-md font-heading text-slate-400 text-right">~ {quote.author}</p>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={key}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-lg font-body text-text mb-2 text-justify leading-5">{quote.text}</p>
+              <p className="text-md font-heading text-slate-400 text-right">~ {quote.author}</p>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>

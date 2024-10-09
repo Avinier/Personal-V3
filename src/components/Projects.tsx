@@ -186,7 +186,7 @@ const projectsArr = [
       name: "IronManIt - AR/VR Project",
       desc: "a computer vison + 3d design project for fun",
       github: "https://github.com/Avinier/FastAI-Implementations",
-      color: "#00ff33",
+      color: "#ff006f",
       year: 2024
     },
     {
