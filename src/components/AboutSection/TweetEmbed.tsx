@@ -16,28 +16,62 @@ const TweetEmbedContainer = () => {
     '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">October is my climax month. Things I do in the next 31 days are gonna define my summer&#39;25. Idk how I&#39;m gonna do it, with college judo personal life...but I have to. Every second counts. No do overs. <a href="https://t.co/WVaoh6uLWV">https://t.co/WVaoh6uLWV</a></p>&mdash; Avinier 🐉 (@avinierx) <a href="https://twitter.com/avinierx/status/1840770451645337927?ref_src=twsrc%5Etfw">September 30, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
   ];
 
-  const [randomTweet, setRandomTweet] = useState('');
+  const [randomTweet, setRandomTweet] = useState<string>('');
+  const [key, setKey] = useState<number>(0);
 
-  useEffect(() => {
+  const getRandomTweet = (): string => {
+    const randomIndex = Math.floor(Math.random() * tweetEmbeds.length);
+    return tweetEmbeds[randomIndex];
+  };
+
+  const loadTwitterEmbed = () => {
+    // Remove existing script if any
+    const existingScript = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
+    if (existingScript) {
+      document.body.removeChild(existingScript);
+    }
+
+    // Add new script
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
     document.body.appendChild(script);
+  };
 
-    const randomIndex = Math.floor(Math.random() * tweetEmbeds.length);
-    setRandomTweet(tweetEmbeds[randomIndex]);
+  const changeTweet = () => {
+    setKey(prevKey => prevKey + 1);
+    setRandomTweet(getRandomTweet());
+    setTimeout(loadTwitterEmbed, 100);
+  };
 
-    return () => {
-      document.body.removeChild(script);
-    };
+  useEffect(() => {
+    setRandomTweet(getRandomTweet());
+    loadTwitterEmbed();
+
+    const interval = setInterval(changeTweet, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div className={styles.tweetContainer}>
-      <div className={styles.twitterTweetWrapper} dangerouslySetInnerHTML={{ __html: randomTweet }} />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={key}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div 
+            className={styles.twitterTweetWrapper} 
+            dangerouslySetInnerHTML={{ __html: randomTweet }} 
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
+
 
 export default TweetEmbedContainer;
 
