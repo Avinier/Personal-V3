@@ -5,6 +5,8 @@ import BookDisplay from "./AboutSection/BookDisplay";
 import AchievementsBoard from "./AboutSection/AchievementsBoard";
 import TweetEmbedContainer from "./AboutSection/TweetEmbed";
 
+import { motion } from "framer-motion";
+
 interface Quote {
   text: string;
   author: string;
@@ -75,83 +77,121 @@ const About: React.FC = () => {
         <h4 className="font-body text-lg italic mb-[50px] text-right">
           My life right now.
         </h4>
-        <div className="relative h-[600px]">
-          <div
-            className="absolute w-[200px] h-[250px] border border-gray top-[10%] left-[10%] cursor-pointer scroll-hide"
-            onClick={handleImageClick}
-            onMouseEnter={() => setIsResumeHovered(true)}
-            onMouseLeave={() => setIsResumeHovered(false)}
-          >
-            <img
-              src="/resume.png"
-              alt="About Me Preview"
-              className="w-full h-full object-cover"
-            />
-            <div
-              className={`absolute inset-0 bg-gray transition-opacity duration-300 ${
-                isResumeHovered ? "opacity-50" : "opacity-0"
-              }`}
-            ></div>
-            <div
-              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-                isResumeHovered ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <div>
-                <h3 className="text-text text-2xl text-center font-body">
-                  Resume
-                </h3>
-                <p className="text-text text-sm text-center font-body">
-                  Check out my resume to know more about my work and experience
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="relative h-[600px] w-[100%]">
+  {/* AchievementsBoard - top-left corner */}
+  <div className="absolute top-0 left-0">
+    <AchievementsBoard/>
+  </div>
 
-          <div
-            className="absolute bottom-[5%] right-[5%] w-[200px] h-[200px] cursor-pointer"
-            onClick={handleGithubClick}
-            onMouseEnter={() => setIsGithubHovered(true)}
-            onMouseLeave={() => setIsGithubHovered(false)}
-          >
-            {isGithubHovered && (
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px]">
-                <img
-                  src="/morework.png"
-                  className="w-full h-full object-contain animate-spin-slower"
-                  alt="More Work Border"
-                />
-              </div>
-            )}
-            <img
-              src="/github-logo.png"
-              alt="GitHub"
-              className="relative z-10 w-full h-full object-contain animate-spin-slow"
-            />
-          </div>
-          <div className="absolute bottom-[50%] left-[50%] cursor-pointer" onClick={handleSSAIClick} onMouseEnter={() => setIsSSAIHovered(true)} onMouseLeave={() => setIsSSAIHovered(false)}>
-            {isSSAIHovered && <p className="font-body text-slate-400 text-md mb-1 text-center">Something I'm working on with my frnds</p>}
-            <img src="/superserverai-logo.png" className="w-full h-full object-contain" alt="more work"/>
-          </div>
-          <div className="absolute left-[20%] bottom-[100%]">
-            <SpotifyNowPlaying/>
-          </div>
-          <div className="absolute left-[50%] bottom-[10%]">
-            <QuoteBlock/>
-          </div>
-          <div className="absolute right-[50%] top-[50%]">
-            <SkillsGrid/>
-          </div>
-          <div className="absolute right-[75%] top-0">
-            <BookDisplay/>
-          </div>
-          <div className="absolute left-[50%] top-[75%]">
-            <AchievementsBoard/>
-          </div>
-          <div className="absolute bottom-0 right-0">
-            <TweetEmbedContainer/>
-          </div>
-        </div>
+  {/* Resume - right to AchievementsBoard */}
+  <div
+    className="absolute w-[200px] h-[250px] border border-gray top-0 left-[25%] cursor-pointer scroll-hide"
+    onClick={handleImageClick}
+    onMouseEnter={() => setIsResumeHovered(true)}
+    onMouseLeave={() => setIsResumeHovered(false)}
+  >
+    <img
+      src="/resume.png"
+      alt="About Me Preview"
+      className="w-full h-full object-cover"
+    />
+    <div
+      className={`absolute inset-0 bg-gray transition-opacity duration-300 ${
+        isResumeHovered ? "opacity-50" : "opacity-0"
+      }`}
+    ></div>
+    <div
+      className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+        isResumeHovered ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div>
+        <h3 className="text-text text-2xl text-center font-body">Resume</h3>
+        <p className="text-text text-sm text-center font-body">
+          Check out my resume to know more about my work and experience
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* SpotifyNowPlaying - top-right corner */}
+  <div className="absolute top-0 right-0">
+    <SpotifyNowPlaying/>
+  </div>
+
+  {/* SuperServerAI logo - below SpotifyNowPlaying */}
+  <div 
+      className="absolute top-[30%] h-fit right-0 cursor-pointer"
+      onMouseEnter={() => setIsSSAIHovered(true)}
+      onMouseLeave={() => setIsSSAIHovered(false)}
+    >
+      <div className="h-6 overflow-hidden">
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ 
+            y: isSSAIHovered ? 0 : 20,
+            opacity: isSSAIHovered ? 1 : 0
+          }}
+          transition={{ 
+            type: "spring",
+            stiffness: 500,
+            damping: 30
+          }}
+          className="font-body text-slate-400 text-md text-center"
+        >
+          Something I'm working on with my friends
+        </motion.p>
+      </div>
+      <img 
+        src="/superserverai-logo.png" 
+        className="w-[50%] h-[50%] object-contain mx-auto" 
+        alt="more work"
+      />
+    </div>
+
+  {/* TweetEmbedContainer - bottom-right corner */}
+  <div className="absolute bottom-0 right-0">
+    <TweetEmbedContainer/>
+  </div>
+
+  {/* Github logo - left to TweetEmbedContainer */}
+  <div
+    className="absolute bottom-0 right-[25%] w-[200px] h-[200px] cursor-pointer"
+    onClick={handleGithubClick}
+    onMouseEnter={() => setIsGithubHovered(true)}
+    onMouseLeave={() => setIsGithubHovered(false)}
+  >
+    {isGithubHovered && (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px]">
+        <img
+          src="/morework.png"
+          className="w-full h-full object-contain animate-spin-slower"
+          alt="More Work Border"
+        />
+      </div>
+    )}
+    <img
+      src="/github-logo.png"
+      alt="GitHub"
+      className="relative z-10 w-full h-full object-contain animate-spin-slow"
+    />
+  </div>
+
+  {/* QuoteBlock - left to Github */}
+  <div className="absolute bottom-0 right-[50%]">
+    <QuoteBlock/>
+  </div>
+
+  {/* SkillsGrid - center, slightly above QuoteBlock */}
+  <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
+    <SkillsGrid/>
+  </div>
+
+  {/* BookDisplay - bottom-left corner */}
+  <div className="absolute bottom-0 left-0">
+    <BookDisplay/>
+  </div>
+</div>
       </div>
     </section>
   );

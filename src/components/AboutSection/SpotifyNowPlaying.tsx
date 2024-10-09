@@ -25,7 +25,7 @@ const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.VITE_SPOTIFY_REFRESH_TOKEN;
-const UPDATE_INTERVAL = 60000*60; //every hour
+const UPDATE_INTERVAL = 60000 * 60; //every hour
 const SAMPLE_ACCESS_TOKEN ="BQBOL1vMvhUtr3lXvpbCRPClbz6oAWDKLAkTVo5Z_YzG9uHZOTfZsV1-8-IyTwuUnORgWPielkWdT9hjq4eoy2z9B30WIZrWMwAKtfMHJbfH70V7EL9tUCty5OuN1LBbX54_kBHRvVeHV13NSb6_LM2eA5uc4BTE1Xly-ke0HUy4dmvjBUzJdtK3e2mHCLQEzwnIaon-bYULFQmuCydZ7VOqG4bVe1p4GSldGbszZLMGqcqE55FAr86XvrTZrL3rjPfBM52a6rqXJ1USbFF_EHNts9_zteo4MA46Jda6igUFJiD-RW3X79uE4OITRng3zOKw7lpgsUrWJqQoKA7fPPN9tqMq"
 const getAccessToken = async () => {
   const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
@@ -153,9 +153,11 @@ const SpotifyNowPlaying: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const containerStyles = "w-[350px] h-[75px] rounded-lg";
+  
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center w-full h-16 bg-gray-100 rounded-lg">
+      <div className={`${containerStyles} bg-gray-100 flex items-center justify-center`}>
         <AlertCircle className="w-6 h-6 text-gray-400" />
         <span className="ml-2 text-sm text-gray-500">Loading...</span>
       </div>
@@ -164,7 +166,7 @@ const SpotifyNowPlaying: React.FC = () => {
 
   if (!trackData) {
     return (
-      <div className="flex items-center justify-center w-full h-16 bg-gray-100 rounded-lg">
+      <div className={`${containerStyles} bg-gray-100 flex items-center justify-center`}>
         <WifiOff className="w-6 h-6 text-gray-400" />
         <span className="ml-2 text-sm text-gray-500">Unable to fetch track data</span>
       </div>
@@ -183,8 +185,8 @@ const SpotifyNowPlaying: React.FC = () => {
       rel="noopener noreferrer"
       className="block hover:bg-gray-50 transition-colors duration-200"
     >
-      <div className="flex items-center p-4 bg-white rounded-lg shadow-sm">
-        <div className="flex-shrink-0 w-16 h-16 mr-4">
+      <div className={`${containerStyles} bg-[#323232] p-3 flex items-center shadow-sm`}>
+        <div className="flex-shrink-0 w-[60px] h-[60px] mr-3">
           <img 
             src={trackData.albumImageUrl} 
             alt="Album Cover"
@@ -192,45 +194,41 @@ const SpotifyNowPlaying: React.FC = () => {
           />
         </div>
         
-        <div className="flex-grow min-w-0">
+        <div className="flex-grow min-w-0 h-full flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium text-gray-900 truncate">
-              {trackData.title}
-            </h3>
+            <div className="flex-grow min-w-0">
+              <h3 className="text-[15px] font-medium text-white font-heading truncate leading-tight">
+                {trackData.title}
+              </h3>
+              <p className="text-[10px] text-slate-200 font-heading truncate mt-0.5">
+                {trackData.artist}
+              </p>
+            </div>
             {trackData.isPlaying ? (
-              <div className="w-4 h-4">
-                <span className="flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                </span>
-              </div>
+              <img 
+                src="/soundbar.gif" 
+                alt="Playing"
+                className="w-4 h-4 ml-2 flex-shrink-0"
+              />
             ) : trackData.lastPlayedAt ? (
-              <div className="flex items-center text-xs text-gray-400">
+              <div className="flex items-center text-xs text-gray-400 ml-2 flex-shrink-0">
                 <Clock className="w-3 h-3 mr-1" />
-                {formatDate(trackData.lastPlayedAt)}
+                {/* {formatDate(trackData.lastPlayedAt)} */}
               </div>
-            ) : (
-              <PauseCircle className="w-4 h-4 text-gray-400" />
-            )}
+            ) : null}
           </div>
           
-          <p className="mt-1 text-sm text-gray-500 truncate">
-            {trackData.artist}
-          </p>
-          
-          <div className="mt-1 flex items-center text-xs text-gray-400">
-            <span>
-              {pad(minutesPlayed)}:{pad(secondsPlayed % 60)}
-            </span>
-            <div className="mx-2 flex-grow relative h-1 bg-gray-200 rounded-full overflow-hidden">
+          <div className="mt-auto">
+            <div className="w-full bg-gray-20 h-1 rounded-full overflow-hidden">
               <div 
-                className="absolute h-full bg-green-500 rounded-full"
+                className="h-full bg-green-500 rounded-full"
                 style={{ width: `${(trackData.timePlayed / trackData.timeTotal) * 100}%` }}
               />
             </div>
-            <span>
-              {pad(minutesTotal)}:{pad(secondsTotal % 60)}
-            </span>
+            <div className="flex justify-between mt-1 text-[8px] font-heading text-slate-200">
+              <span>{pad(minutesPlayed)}:{pad(secondsPlayed % 60)}</span>
+              <span>{pad(minutesTotal)}:{pad(secondsTotal % 60)}</span>
+            </div>
           </div>
         </div>
       </div>
