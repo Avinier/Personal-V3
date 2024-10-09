@@ -25,31 +25,55 @@ const TweetEmbedContainer = () => {
   };
 
   const loadTwitterEmbed = () => {
+    // Clear existing tweets
+    const tweetContainer = document.querySelector(`.${styles.twitterTweetWrapper}`);
+    if (tweetContainer) {
+      tweetContainer.innerHTML = randomTweet;
+    }
+
     // Remove existing script if any
     const existingScript = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
     if (existingScript) {
-      document.body.removeChild(existingScript);
+      existingScript.remove();
     }
 
-    // Add new script
+    // Add new script and ensure it loads
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
+    script.onload = () => {
+      // @ts-ignore
+      if (window.twttr) {
+        // @ts-ignore
+        window.twttr.widgets.load(tweetContainer);
+      }
+    };
     document.body.appendChild(script);
   };
 
   const changeTweet = () => {
+    const newTweet = getRandomTweet();
+    setRandomTweet(newTweet);
     setKey(prevKey => prevKey + 1);
-    setRandomTweet(getRandomTweet());
+    
+    // Small delay to ensure state is updated before loading the new tweet
     setTimeout(loadTwitterEmbed, 100);
   };
 
   useEffect(() => {
-    setRandomTweet(getRandomTweet());
-    loadTwitterEmbed();
+    const initialTweet = getRandomTweet();
+    setRandomTweet(initialTweet);
+    
+    // Load initial tweet
+    setTimeout(loadTwitterEmbed, 100);
 
-    const interval = setInterval(changeTweet, 10000);
-    return () => clearInterval(interval);
+    const interval = setInterval(changeTweet, 30000);
+    return () => {
+      clearInterval(interval);
+      // Cleanup script on unmount
+      const script = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
+      if (script) script.remove();
+    };
   }, []);
 
   return (
@@ -72,6 +96,4 @@ const TweetEmbedContainer = () => {
   );
 };
 
-
 export default TweetEmbedContainer;
-
