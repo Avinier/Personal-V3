@@ -222,8 +222,7 @@ const projectsArr = [
       if (selectedYear === 'All') {
         setProjects(projectsArr);
       } else {
-        setProjects(projectsArr.filter(project => project.year === selectedYear));
-      }
+        setProjects(projectsArr.filter(project => project.year === Number(selectedYear)));      }
     }, [selectedYear]);
   
     return (
