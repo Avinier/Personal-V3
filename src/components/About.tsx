@@ -24,8 +24,6 @@ const quotes: Quote[] = [
   { text: "Everything I'm not made me everything I am.", author: "Kanye West" },
   { text: "All truly strong people are kind.", author: "Takuan, Vagabond" },
   { text: "This man is gazing up at something that I can't even see.", author: "Levi to Erwin"}
-
-
 ];
 
 const QuoteBlock: React.FC = () => {
@@ -79,10 +77,55 @@ const QuoteBlock: React.FC = () => {
   );
 };
 
+const gifs = [
+  "https://giphy.com/embed/Ku1FyPdoBXVg4",
+  "https://giphy.com/embed/JRlqKEzTDKci5JPcaL",
+  "https://giphy.com/embed/l4FGDAx6u3hthMhgI",
+  "https://giphy.com/embed/1dBOHESEOYQa4",
+  "https://giphy.com/embed/K0JrA2VbkFy2A",
+  "https://giphy.com/embed/3o6Zt6czQXwQhQjHQQ",
+  "https://giphy.com/embed/12CSpwCtoy1Vfy",
+  "https://giphy.com/embed/oHsKFiT28Id0I",
+  "https://giphy.com/embed/VwH0xaBKMDdXW"
+];
+
+const GifContainer = () => {
+  const [currentGif, setCurrentGif] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentGif((prev) => (prev + 1) % gifs.length);
+    }, 7500);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+    <div className="w-[280px] h-[150px] relative rounded-lg cursor-not-allowed">
+      <AnimatePresence mode="wait">
+        <motion.iframe
+          key={currentGif}
+          src={gifs[currentGif]}
+          className="absolute top-1/2 left-1/2 object-fill transform -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-lg"
+          frameBorder="0"
+          allowFullScreen
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+};
+
+
 const About: React.FC = () => {
   const [isResumeHovered, setIsResumeHovered] = useState(false);
   const [isGithubHovered, setIsGithubHovered] = useState(false);
   const [isSSAIHovered, setIsSSAIHovered] = useState(false);
+  const [isNotionHovered, setIsNotionHovered] = useState(false);
+
 
 
   const handleImageClick = () => {
@@ -97,6 +140,9 @@ const About: React.FC = () => {
   const handleSSAIClick = () => {
     window.open("https://site.quantumsenses.com", "_blank");
   };
+  const handleNotionClick = () => {
+    window.open("https://complete-pyjama-132.notion.site/READLIST-11b84879fc0680fe9c1ef5859751129f", "_blank")
+  }
 
   return (
     <section className="bg-background">
@@ -113,7 +159,7 @@ const About: React.FC = () => {
 
   {/* Resume - right to AchievementsBoard */}
   <div
-    className="absolute w-[200px] h-[250px] border border-gray top-0 left-[25%] cursor-pointer scroll-hide"
+    className="absolute w-[200px] h-[250px] border border-gray top-0 left-[27%] cursor-pointer scroll-hide"
     onClick={handleImageClick}
     onMouseEnter={() => setIsResumeHovered(true)}
     onMouseLeave={() => setIsResumeHovered(false)}
@@ -149,7 +195,8 @@ const About: React.FC = () => {
 
   {/* SuperServerAI logo - below SpotifyNowPlaying */}
   <div 
-      className="absolute top-[30%] h-fit right-0 cursor-pointer"
+      className="absolute top-[15%] h-fit w-[600px] right-0 cursor-pointer"
+      onClick={handleSSAIClick}
       onMouseEnter={() => setIsSSAIHovered(true)}
       onMouseLeave={() => setIsSSAIHovered(false)}
     >
@@ -172,28 +219,31 @@ const About: React.FC = () => {
       </div>
       <img 
         src="/superserverai-logo.png" 
-        className="w-[50%] h-[50%] object-contain mx-auto" 
-        alt="more work"
+        className="w-full h-full object-fit m-0" 
+        alt="logo"
       />
+    </div>
+    <div className="absolute top-[44%] left-[26%]">
+      <GifContainer/>
     </div>
 
   {/* TweetEmbedContainer - bottom-right corner */}
-  <div className="absolute bottom-0 right-0">
+  <div className="absolute bottom-[3%] right-0">
     <TweetEmbedContainer/>
   </div>
 
   {/* Github logo - left to TweetEmbedContainer */}
   <div
-    className="absolute bottom-0 right-[25%] w-[200px] h-[200px] cursor-pointer"
+    className="absolute bottom-[2%] right-[30%] w-[220px] h-[220px] cursor-pointer"
     onClick={handleGithubClick}
     onMouseEnter={() => setIsGithubHovered(true)}
     onMouseLeave={() => setIsGithubHovered(false)}
   >
     {isGithubHovered && (
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px]">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[260px] h-[260px]">
         <img
           src="/morework.png"
-          className="w-full h-full object-contain animate-spin-slower"
+          className="w-full h-full object-fit animate-spin-slower"
           alt="More Work Border"
         />
       </div>
@@ -201,23 +251,48 @@ const About: React.FC = () => {
     <img
       src="/github-logo.png"
       alt="GitHub"
-      className="relative z-10 w-full h-full object-contain animate-spin-slow"
+      className="relative z-10 w-full h-full object-fit animate-spin-slow"
     />
   </div>
 
   {/* QuoteBlock - left to Github */}
-  <div className="absolute bottom-0 right-[50%]">
+  <div className="absolute bottom-[46%] right-[20%]">
     <QuoteBlock/>
   </div>
 
   {/* SkillsGrid - center, slightly above QuoteBlock */}
-  <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
+  <div className="absolute top-[48%] left-[90%] transform -translate-x-1/2 -translate-y-1/2">
     <SkillsGrid/>
   </div>
 
   {/* BookDisplay - bottom-left corner */}
-  <div className="absolute bottom-0 left-0">
+  <div className="absolute bottom-[18%] left-0">
     <BookDisplay/>
+  </div>
+  <div className="absolute bottom-[10%] left-[21%] w-[100px]">
+  <div className="h-6 overflow-hidden"
+  onMouseEnter={() => setIsNotionHovered(true)}
+  onMouseLeave={() => setIsNotionHovered(false)}
+  >
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ 
+            y: isNotionHovered ? 0 : 20,
+            opacity: isNotionHovered ? 1 : 0
+          }}
+          transition={{ 
+            type: "spring",
+            stiffness: 500,
+            damping: 30
+          }}
+          className="font-body text-slate-400 text-md text-center"
+        >
+          Top 10 fav reads rn
+        </motion.p>
+      </div>
+    <button onClick={handleNotionClick} className="text-center text-lg underline text-blue-600 font-[900] font-heading">
+      https://complete-pyjama-132.notion.site/READLIST-11b84879fc0680fe9c1ef5859751129f
+    </button>
   </div>
 </div>
       </div>

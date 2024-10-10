@@ -22,24 +22,24 @@ interface Skill {
 
   return (
     <>
-    {isExpanded && <h2 className='font-heading text-slate-400 text-lg text-center'>My Skills</h2>}
+    {isExpanded && <h2 className='font-body text-slate-400 bg-white text-xl m-0 p-0 text-center'>My Skills</h2>}
     <div 
-      className={`p-[15px] shadow-lg transition-all duration-200 ease-in-out ${isExpanded ? 'w-[300px] h-[300px]' : 'w-[200px] h-[200px]'}`}
+      className={`p-[15px]  shadow-lg transition-all duration-200 ease-in-out ${isExpanded ? 'w-[250px] h-[250px] z-10 bg-white ' : 'w-[200px] h-[200px]'}`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
-      <div className="grid grid-cols-3 grid-rows-3 gap-1 w-full h-full cursor-pointer">
+      <div className={`grid z-10 grid-cols-3 grid-rows-3 gap-1 w-full h-full cursor-pointer`}>
         {skills.map((skill, index) => (
           <div 
             key={index} 
-            className={`flex flex-col items-center justify-center rounded-full bg-white overflow-hidden ${isExpanded ? 'p-1' : 'p-1 border-2 border-text'}`}
+            className={`flex flex-col items-center justify-center rounded-full bg-white overflow-hidden ${isExpanded ? 'p-1 z-10' : 'p-1 border-2 border-text'}`}
             aria-label={skill.name}
           >
             <div 
-              className={`transition-all duration-200 ease-in-out ${isExpanded ? 'w-[40px] h-[40px] mb-2' : 'w-[20px] h-[20px]'}`}
+              className={`transition-all duration-200 ease-in-out ${isExpanded ? 'w-[30px] h-[30px] mb-2 z-10' : 'w-[20px] h-[20px]'}`}
               dangerouslySetInnerHTML={{ __html: skill.svgPath }}
             />
-            <span className={`text-sm font-body font-medium text-text mt-2 transition-all duration-200 ease-in-out absolute ${isExpanded ? 'opacity-100 visible translate-y-[30px]' : 'opacity-0 invisible translate-y-[20px]'}`}>
+            <span className={`text-sm font-body font-medium text-text mt-2 transition-all duration-200 ease-in-out absolute ${isExpanded ? 'opacity-100 visible translate-y-[30px] z-10' : 'opacity-0 invisible translate-y-[20px]'}`}>
               {skill.name}
             </span>
           </div>

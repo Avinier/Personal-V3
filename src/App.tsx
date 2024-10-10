@@ -2,7 +2,7 @@
 // ai generated logo + assets [+++]
 // copywriting. [+++]
 // about section [+++]
-// - achievements board, arrangement 
+// - achievements board
 //grainy background fix [++]
 //make everything responsive [+++]
 // darkmode [++]

@@ -185,7 +185,7 @@ const SpotifyNowPlaying: React.FC = () => {
       rel="noopener noreferrer"
       className="block hover:bg-gray-50 transition-colors duration-200"
     >
-      <div className={`${containerStyles} bg-[#323232] p-3 flex items-center shadow-sm`}>
+      <div className={`${containerStyles} bg-[#22222c] p-3 flex items-center shadow-sm`}>
         <div className="flex-shrink-0 w-[60px] h-[60px] mr-3">
           <img 
             src={trackData.albumImageUrl} 
@@ -200,7 +200,7 @@ const SpotifyNowPlaying: React.FC = () => {
               <h3 className="text-[15px] font-medium text-white font-body truncate leading-tight">
                 {trackData.title}
               </h3>
-              <p className="text-[10px] text-slate-200 font-heading truncate mt-0.5">
+              <p className="text-[10px] text-slate-200 font-body truncate mt-0.5">
                 {trackData.artist}
               </p>
             </div>
