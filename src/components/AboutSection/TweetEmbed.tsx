@@ -22,7 +22,6 @@ const TweetEmbedContainer = () => {
   ];
 
   const [randomTweet, setRandomTweet] = useState<string>('');
-  const [key, setKey] = useState<number>(0);
 
   const getRandomTweet = (): string => {
     const randomIndex = Math.floor(Math.random() * tweetEmbeds.length);
@@ -30,73 +29,29 @@ const TweetEmbedContainer = () => {
   };
 
   const loadTwitterEmbed = () => {
-    // Clear existing tweets
-    const tweetContainer = document.querySelector(`.${styles.twitterTweetWrapper}`);
-    if (tweetContainer) {
-      tweetContainer.innerHTML = randomTweet;
-    }
-
-    // Remove existing script if any
-    const existingScript = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    // Add new script and ensure it loads
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
-    script.onload = () => {
-      // @ts-ignore
-      if (window.twttr) {
-        // @ts-ignore
-        window.twttr.widgets.load(tweetContainer);
-      }
-    };
     document.body.appendChild(script);
   };
 
-  const changeTweet = () => {
-    const newTweet = getRandomTweet();
-    setRandomTweet(newTweet);
-    setKey(prevKey => prevKey + 1);
-    
-    // Small delay to ensure state is updated before loading the new tweet
-    setTimeout(loadTwitterEmbed, 100);
-  };
-
   useEffect(() => {
-    const initialTweet = getRandomTweet();
-    setRandomTweet(initialTweet);
-    
-    // Load initial tweet
-    setTimeout(loadTwitterEmbed, 100);
-
-    const interval = setInterval(changeTweet, 30000);
-    return () => {
-      clearInterval(interval);
-      // Cleanup script on unmount
-      const script = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
-      if (script) script.remove();
-    };
-  }, []);
+    setRandomTweet(getRandomTweet());
+    loadTwitterEmbed();
+  }, []); // Empty dependency array means this only runs once on mount
 
   return (
     <div className={styles.tweetContainer}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={key}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div 
-            className={styles.twitterTweetWrapper} 
-            dangerouslySetInnerHTML={{ __html: randomTweet }} 
-          />
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div 
+          className={styles.twitterTweetWrapper} 
+          dangerouslySetInnerHTML={{ __html: randomTweet }} 
+        />
+      </motion.div>
     </div>
   );
 };

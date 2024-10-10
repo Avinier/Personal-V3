@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
         repeat={Infinity}
       />
     </h1>
-    <h4 className='font-body text-lg italic mb-[50px]'>I'm on a quest to become a master craftsman blah blah blah</h4>
+    <h4 className='font-body text-lg italic mb-[50px]'>I'm on a quest to become a master craftsman, be it in digital fabrication, art, or wealth creation</h4>
     <div className="grid grid-cols-3 gap-10 text-text font-body text-lg">
         <div className="space-y-2 text-justify">
           <p>
@@ -30,15 +30,15 @@ const Hero: React.FC = () => {
         </div>
         <div className="space-y-2 text-justify">
           <p>
-            I'm currently working on my startup <a href="https://site.quantumsenses.com" className='underline'>SuperServerAI</a> with my frnds, along with several personal projects in ai/dl space.
+            I'm currently building my startup <a href="https://site.quantumsenses.com" className='underline'>SuperServerAI</a> with my frnds, along with several personal projects in ai/dl space.
           </p>
         </div>
         <div className="space-y-2 text-justify">
           <p>
-            Check out my <a href="https://github.com/Avinier?tab=repositories" className="underline">work</a> and <a href="#" className="underline">writings</a>.
+            Check out my <a href="https://github.com/Avinier?tab=repositories" className="underline">work</a> and <a href="/writings" className="underline">writings</a>.
           </p>
           <p>
-            See more on my <a href="#" className="underline">resume</a> or contact me at <a href="mailto:avinierone@gmail.com" className="underline">avinierone@gmail.com</a>.
+            See more on my <a href="https://docs.google.com/document/d/e/2PACX-1vRHA8mSTTW8dV4aS6bub4olf1Ea-0kR0Dd2Yl_syu9ue-ujQTLxQghRTvNUpAcOyA/pub" className="underline">resume</a> or contact me at <a href="mailto:avinierone@gmail.com" className="underline">avinierone@gmail.com</a>.
           </p>
         </div>
       </div>

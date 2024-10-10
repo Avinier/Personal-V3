@@ -86,7 +86,9 @@ const gifs = [
   "https://giphy.com/embed/3o6Zt6czQXwQhQjHQQ",
   "https://giphy.com/embed/12CSpwCtoy1Vfy",
   "https://giphy.com/embed/oHsKFiT28Id0I",
-  "https://giphy.com/embed/VwH0xaBKMDdXW"
+  "https://giphy.com/embed/VwH0xaBKMDdXW",
+  "https://giphy.com/embed/USUIlS7b3qnD9S2A57",
+  
 ];
 
 const GifContainer = () => {
@@ -149,7 +151,7 @@ const About: React.FC = () => {
       <div className="w-[75%] mx-auto">
         <h1 className="font-heading text-4xl text-text text-right">About</h1>
         <h4 className="font-body text-lg italic mb-[50px] text-right">
-          My life right now.
+          What my looks like right now.
         </h4>
         <div className="relative h-[600px] w-[100%]">
   {/* AchievementsBoard - top-left corner */}
@@ -234,7 +236,7 @@ const About: React.FC = () => {
 
   {/* Github logo - left to TweetEmbedContainer */}
   <div
-    className="absolute bottom-[2%] right-[30%] w-[220px] h-[220px] cursor-pointer"
+    className="absolute bottom-[2%] right-[29%] w-[220px] h-[220px] cursor-pointer"
     onClick={handleGithubClick}
     onMouseEnter={() => setIsGithubHovered(true)}
     onMouseLeave={() => setIsGithubHovered(false)}

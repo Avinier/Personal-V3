@@ -230,7 +230,7 @@ const projectsArr = [
       <section className="bg-background min-h-screen py-8 md:py-12">
         <div className="w-[90%] md:w-[75%] mx-auto">
           <h1 className="font-heading text-3xl md:text-4xl text-text mb-2">Projects</h1>
-          <h4 className='font-body text-base md:text-lg italic mb-6 md:mb-[50px]'>My projects range from this to that</h4>
+          <h4 className='font-body text-base md:text-lg italic mb-6 md:mb-[50px]'>My projects range from web-dev to deep-learning, personal and production deployed.</h4>
           <div className="md:hidden mb-8">
             <TimelineSlider years={years} onChange={setSelectedYear} />
           </div>
