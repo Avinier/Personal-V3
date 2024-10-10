@@ -4,7 +4,7 @@ import { TypeAnimation } from 'react-type-animation';
 const Hero: React.FC = () => {
   return (
     <section className='bg-background'>
-    <div className=' w-[75%] mx-auto my-[200px]'>
+    <div className=' w-[75%] mx-auto my-[300px]'>
       <h1 className="text-4xl text-text font-heading font-bold">
       Hi! I'm Avinier, a{' '}
       <TypeAnimation
