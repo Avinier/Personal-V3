@@ -208,7 +208,7 @@ const SpotifyNowPlaying: React.FC = () => {
               <img 
                 src="/soundbar.gif" 
                 alt="Playing"
-                className="w-4 h-4 ml-2 flex-shrink-0"
+                className="w-5 h-5 ml-2 flex-shrink-0"
               />
             ) : trackData.lastPlayedAt ? (
               <div className="flex items-center text-xs text-gray-400 ml-2 flex-shrink-0">
