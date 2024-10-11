@@ -176,6 +176,20 @@ const projectsArr = [
       year: 2023
     },
     {
+      name: "QodeStore-RAG",
+      desc: "A RAG pipeline specialized for production-ready codebases",
+      github: "https://github.com/Avinier/QodeStore-RAG",
+      color: "#ff006f",
+      year: 2024
+    },
+    {
+      name: "E-minor",
+      desc: "An NFT Marketplace for Music Lovers",
+      github: "https://github.com/Avinier/E-minor",
+      color: "#00b7ff",
+      year: 2023
+    },
+    {
       name: "Aviniercore AI Asset-Generator",
       desc: "Fine-tuned Diffusion model to make my own design genre assets",
       github: "https://github.com/Avinier/FastAI-Implementations",
@@ -188,13 +202,6 @@ const projectsArr = [
       github: "https://github.com/Avinier/FastAI-Implementations",
       color: "#ff006f",
       year: 2024
-    },
-    {
-      name: "E-minor",
-      desc: "An NFT Marketplace for Music Lovers",
-      github: "https://github.com/Avinier/E-minor",
-      color: "#00b7ff",
-      year: 2023
     },
     {
       name: "Game of Life",

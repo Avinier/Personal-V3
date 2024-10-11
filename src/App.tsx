@@ -1,3 +1,10 @@
+//TODO:
+// about section [+++]
+// - achievements board
+//grainy background fix [++]
+//make everything responsive [+++]
+// darkmode [++]
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from 'components/Header';
@@ -32,7 +39,7 @@ const App: React.FC = () => {
           <a 
             href='/' 
             className={`
-              fixed cursor-pointer z-10 w-[95px] h-[95px] 
+              fixed cursor-pointer z-[90] w-[95px] h-[95px] 
               top-[10%] left-[10%] transition-opacity duration-300
               ${showLogo ? 'opacity-100' : 'opacity-0 pointer-events-none'}
             `}

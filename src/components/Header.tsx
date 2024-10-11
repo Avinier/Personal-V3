@@ -10,7 +10,7 @@ const Hamburger: React.FC = () => {
   };
 
   return (
-    <div className="relative z-10">
+    <div className="relative z-[100]">
       <button
         onClick={toggleMenu}
         className="fixed top-20 right-20 z-50 p-2 text-gray-800 hover:text-gray-600 focus:outline-none transition-opacity duration-300"
