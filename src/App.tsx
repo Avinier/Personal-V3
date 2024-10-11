@@ -39,7 +39,7 @@ const App: React.FC = () => {
           <a 
             href='/' 
             className={`
-              fixed cursor-pointer z-[90] w-[95px] h-[95px] 
+              fixed cursor-pointer z-[90] w-[90px] h-[90px] 
               top-[10%] left-[10%] transition-opacity duration-300
               ${showLogo ? 'opacity-100' : 'opacity-0 pointer-events-none'}
             `}
