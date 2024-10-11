@@ -20,6 +20,7 @@ dist-ssr
 # misc
 .DS_Store
 *.pem
+/public/logos
 
 # debug
 npm-debug.log*
