@@ -151,7 +151,7 @@ const About: React.FC = () => {
       <div className="w-[75%] mx-auto">
         <h1 className="font-heading text-4xl text-text text-right">About</h1>
         <h4 className="font-body text-lg italic mb-[50px] text-right">
-          What my looks like right now.
+          What my life looks like right now.
         </h4>
         <div className="relative h-[600px] w-[100%]">
   {/* AchievementsBoard - top-left corner */}
