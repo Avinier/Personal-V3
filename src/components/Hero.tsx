@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
             Check out my <a href="https://github.com/Avinier?tab=repositories" className="underline">work</a> and <a href="/writings" className="underline">writings</a>.
           </p>
           <p>
-            See more on my <a href="https://docs.google.com/document/d/e/2PACX-1vRHA8mSTTW8dV4aS6bub4olf1Ea-0kR0Dd2Yl_syu9ue-ujQTLxQghRTvNUpAcOyA/pub" className="underline">resume</a> or contact me at <a href="mailto:avinierone@gmail.com" className="underline">avinierone@gmail.com</a>.
+            See more on my <a href="https://docs.google.com/document/d/e/2PACX-1vRHA8mSTTW8dV4aS6bub4olf1Ea-0kR0Dd2Yl_syu9ue-ujQTLxQghRTvNUpAcOyA/pub" className="underline">resume</a> or contact me at <a href="mailto:avinier@proton.me" className="underline">avinier@proton.me</a>.
           </p>
         </div>
       </div>
