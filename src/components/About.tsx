@@ -132,7 +132,7 @@ const About: React.FC = () => {
 
   const handleImageClick = () => {
     window.open(
-      "https://docs.google.com/document/d/e/2PACX-1vRHA8mSTTW8dV4aS6bub4olf1Ea-0kR0Dd2Yl_syu9ue-ujQTLxQghRTvNUpAcOyA/pub",
+      "https://drive.google.com/file/d/12_VHuxsRPwhCbz1UreuqxxIVckuU1lZv/view?usp=sharing",
       "_blank"
     );
   };
@@ -140,7 +140,7 @@ const About: React.FC = () => {
     window.open("https://github.com/Avinier?tab=repositories", "_blank");
   };
   const handleSSAIClick = () => {
-    window.open("https://site.quantumsenses.com", "_blank");
+    window.open("https://getssai.com", "_blank");
   };
   const handleNotionClick = () => {
     window.open("https://complete-pyjama-132.notion.site/READLIST-11b84879fc0680fe9c1ef5859751129f", "_blank")
@@ -205,18 +205,18 @@ const About: React.FC = () => {
       <div className="h-6 overflow-hidden">
         <motion.p
           initial={{ y: 20, opacity: 0 }}
-          animate={{ 
+          animate={{
             y: isSSAIHovered ? 0 : 20,
             opacity: isSSAIHovered ? 1 : 0
           }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 500,
             damping: 30
           }}
           className="font-body text-slate-400 text-md text-center"
         >
-          Something I'm working on with my friends
+          now known as ssai
         </motion.p>
       </div>
       <img 

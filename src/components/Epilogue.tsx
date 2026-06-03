@@ -10,7 +10,7 @@ const Epilogue: React.FC = () => {
       
     <div className="space-y-2 text-justify">
           <p>
-            I'm currently looking for summer internships, in the space of ai-engineering and software-dev. For more info, please check out my <a href="https://docs.google.com/document/d/e/2PACX-1vRHA8mSTTW8dV4aS6bub4olf1Ea-0kR0Dd2Yl_syu9ue-ujQTLxQghRTvNUpAcOyA/pub" className="underline">resume.</a> 
+            I'm currently building <a href="https://getssai.com" className="underline" target="_blank" rel="noopener noreferrer">ssai</a>, it's an ai employee for your devops needs. Would love to talk if you're interested in knowing more about it — <a href="https://cal.com/avinier" className="underline" target="_blank" rel="noopener noreferrer">let's chat</a>.
           </p>
         </div>
         <div className="space-y-2 text-justify">
