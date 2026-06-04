@@ -3,10 +3,10 @@ import React, {useState} from 'react';
 const Epilogue: React.FC = () => {
   return (
     <section className='bg-background'>
-    <div className=' w-[75%] mx-auto'>
-    <h1 className="font-heading text-4xl text-text text-right">Epilogue</h1>
-    <h4 className='font-body text-lg italic mb-[50px] text-right'>Before you go.</h4>
-    <div className="grid grid-cols-3 my-[50px] gap-10 text-text font-body text-lg">
+    <div className='w-[90%] md:w-[75%] mx-auto'>
+    <h1 className="font-heading text-3xl md:text-4xl text-text text-right">Epilogue</h1>
+    <h4 className='font-body text-base md:text-lg italic mb-8 md:mb-[50px] text-right'>Before you go.</h4>
+    <div className="grid grid-cols-1 md:grid-cols-3 my-8 md:my-[50px] gap-6 md:gap-10 text-text font-body text-base md:text-lg">
       
     <div className="space-y-2 text-justify">
           <p>

@@ -37,10 +37,10 @@ const App: React.FC = () => {
         <Header />
         <main className="flex-grow">
           <a 
-            href='/' 
+            href='/'
             className={`
-              fixed cursor-pointer z-[90] w-[55px] h-[55px] 
-              top-[10%] left-[10%] transition-opacity duration-300
+              fixed cursor-pointer z-[90] w-[40px] h-[40px] md:w-[55px] md:h-[55px]
+              top-6 left-6 md:top-[10%] md:left-[10%] transition-opacity duration-300
               ${showLogo ? 'opacity-100' : 'opacity-0 pointer-events-none'}
             `}
           >

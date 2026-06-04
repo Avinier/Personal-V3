@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-background py-4">
-      <div className="w-[50%] my-[40px] mx-auto flex justify-around items-center">
+      <div className="w-[90%] md:w-[50%] my-8 md:my-[40px] mx-auto flex flex-col md:flex-row gap-4 md:gap-0 justify-around items-center">
         <div>
           <p className="text-[15px] font-heading text-text">
             Copyright © {currentYear}{' '}

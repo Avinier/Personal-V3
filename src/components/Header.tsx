@@ -13,13 +13,13 @@ const Hamburger: React.FC = () => {
     <div className="relative z-[100]">
       <button
         onClick={toggleMenu}
-        className="fixed top-20 right-20 z-50 p-2 text-gray-800 hover:text-gray-600 focus:outline-none transition-opacity duration-300"
+        className="fixed top-6 right-6 md:top-20 md:right-20 z-50 p-2 text-gray-800 hover:text-gray-600 focus:outline-none transition-opacity duration-300"
       >
         {isOpen ? <X size={36} /> : <Menu size={36} />}
       </button>
 
       <div
-        className={`fixed inset-0 bg-white transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 bg-background transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -33,7 +33,7 @@ const Hamburger: React.FC = () => {
             <Link
               key={index}
               to={item.path}
-              className="text-4xl font-bold mb-8 hover:text-gray-600 hover:italic transition-colors duration-200"
+              className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 hover:text-gray-600 hover:italic transition-colors duration-200"
               onClick={toggleMenu}
             >
               {item.name}

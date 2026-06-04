@@ -153,7 +153,7 @@ const SpotifyNowPlaying: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const containerStyles = "w-[350px] h-[75px] rounded-lg";
+  const containerStyles = "w-full md:w-[350px] h-[75px] rounded-lg";
   
   if (isLoading) {
     return (

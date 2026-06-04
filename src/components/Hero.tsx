@@ -4,26 +4,29 @@ import { TypeAnimation } from 'react-type-animation';
 const Hero: React.FC = () => {
   return (
     <section className='bg-background'>
-    <div className=' w-[75%] mx-auto my-[250px] relative'>
+    <div className='w-[90%] md:w-[75%] mx-auto my-[120px] md:my-[250px] relative'>
       <p className="absolute bottom-[-40px] left-0 font-mono text-xs text-slate-400">last updated: june 2025</p>
-      <h1 className="text-4xl text-text font-heading font-bold">
-      Hi! I'm Avinier, a{' '}
-      <TypeAnimation
-        sequence={[
-          'programmer',
-          1000,
-          'designer',
-          1000,
-          'creator',
-          1000,
-        ]}
-        wrapper="span"
-        speed={50}
-        repeat={Infinity}
-      />
-    </h1>
-    <h4 className='font-body text-lg italic mb-[50px]'>I'm on a quest to become a master craftsman, be it in digital fabrication, art, or wealth creation</h4>
-    <div className="grid grid-cols-3 gap-10 text-text font-body text-lg">
+      <h1 className="text-3xl md:text-4xl text-text font-heading font-bold">
+        Hi! I'm Avinier, a{' '}
+      </h1>
+      <div className="h-[2.5rem] md:h-[3.25rem]">
+        <TypeAnimation
+          sequence={[
+            'programmer.',
+            1000,
+            'designer.',
+            1000,
+            'creator.',
+            1000,
+          ]}
+          wrapper="span"
+          className="text-3xl md:text-4xl text-text font-heading font-bold"
+          speed={50}
+          repeat={Infinity}
+        />
+      </div>
+    <h4 className='font-body text-base md:text-lg italic mt-4 mb-8 md:mb-[50px]'>I'm on a quest to become a master craftsman, be it in digital fabrication, art, or wealth creation</h4>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 text-text font-body text-base md:text-lg">
         <div className="space-y-2 text-justify">
           <p>
             I'm a cse grad, based out of Mumbai, specialising in agentic systems and deep learning applications.

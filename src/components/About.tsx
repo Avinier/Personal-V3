@@ -51,7 +51,7 @@ const QuoteBlock: React.FC = () => {
   if (!quote) return null;
 
   return (
-    <div className="w-[300px] h-max-[120px] px-5 pt-2 pb-0 border-l-4 border-text rounded-md cursor-pointer hover:bg-[#eeeae67d]">
+    <div className="w-full md:w-[300px] h-max-[120px] px-5 pt-2 pb-0 border-l-4 border-text rounded-md cursor-pointer hover:bg-[#eeeae67d]">
       <div className="flex space-x-4">
         <div className="flex-shrink-0">
           <svg className="h-8 w-8 text-text" fill="currentColor" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@ const GifContainer = () => {
   }, []);
 
   return (
-    <div className="w-[280px] h-[150px] relative rounded-lg cursor-not-allowed">
+    <div className="w-full md:w-[280px] h-[150px] relative rounded-lg cursor-not-allowed">
       <AnimatePresence mode="wait">
         <motion.iframe
           key={currentGif}
@@ -148,18 +148,66 @@ const About: React.FC = () => {
 
   return (
     <section className="bg-background">
-      <div className="w-[75%] mx-auto">
-        <h1 className="font-heading text-4xl text-text text-right">About</h1>
-        <h4 className="font-body text-lg italic mb-[50px] text-right">
+      <div className="w-[90%] md:w-[75%] mx-auto">
+        <h1 className="font-heading text-3xl md:text-4xl text-text text-right">About</h1>
+        <h4 className="font-body text-base md:text-lg italic mb-8 md:mb-[50px] text-right">
           What my life looks like right now.
         </h4>
-        <div className="relative h-[600px] w-[100%]">
-  {/* AchievementsBoard - top-left corner */}
+
+        {/* Mobile layout: 2-col collage grid */}
+        <div className="grid grid-cols-2 gap-3 md:hidden">
+          {/* Row 1: Spotify spans full width */}
+          <div className="col-span-2">
+            <SpotifyNowPlaying/>
+          </div>
+
+          {/* Row 2: Achievements + Resume side by side */}
+          <AchievementsBoard/>
+          <div
+            className="h-[300px] border border-gray cursor-pointer relative overflow-hidden"
+            onClick={handleImageClick}
+          >
+            <img src="/resume.png" alt="Resume" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gray opacity-0 active:opacity-50 transition-opacity duration-300" />
+            <p className="absolute bottom-2 left-0 right-0 text-center text-xs font-body text-darkgray">Resume</p>
+          </div>
+
+          {/* Row 3: SSAI logo full width */}
+          <div className="col-span-2 cursor-pointer" onClick={handleSSAIClick}>
+            <img src="/superserverai-logo.png" className="w-full h-auto object-contain" alt="SuperServerAI logo" />
+          </div>
+
+          {/* Row 4: GIF + Quote side by side */}
+          <GifContainer/>
+          <QuoteBlock/>
+
+          {/* Row 5: GitHub + Skills side by side */}
+          <div
+            className="flex items-center justify-center cursor-pointer"
+            onClick={handleGithubClick}
+          >
+            <img src="/github-logo.png" alt="GitHub" className="w-[100px] h-[100px] object-contain animate-spin-slow" />
+          </div>
+          <div className="flex items-center justify-center">
+            <SkillsGrid/>
+          </div>
+
+          {/* Row 6: Books + Tweets side by side */}
+          <BookDisplay/>
+          <TweetEmbedContainer/>
+
+          {/* Row 7: Reading list full width */}
+          <button onClick={handleNotionClick} className="col-span-2 text-center py-3 text-base underline text-blue-600 font-[900] font-heading">
+            My reading list
+          </button>
+        </div>
+
+        {/* Desktop layout: absolute-positioned collage */}
+        <div className="relative h-[600px] w-full hidden md:block">
   <div className="absolute top-0 left-0">
     <AchievementsBoard/>
   </div>
 
-  {/* Resume - right to AchievementsBoard */}
   <div
     className="absolute w-[200px] h-[250px] border border-gray top-0 left-[27%] cursor-pointer scroll-hide"
     onClick={handleImageClick}
@@ -190,13 +238,11 @@ const About: React.FC = () => {
     </div>
   </div>
 
-  {/* SpotifyNowPlaying - top-right corner */}
   <div className="absolute top-0 right-0">
     <SpotifyNowPlaying/>
   </div>
 
-  {/* SuperServerAI logo - below SpotifyNowPlaying */}
-  <div 
+  <div
       className="absolute top-[15%] h-fit w-[600px] right-0 cursor-pointer"
       onClick={handleSSAIClick}
       onMouseEnter={() => setIsSSAIHovered(true)}
@@ -219,9 +265,9 @@ const About: React.FC = () => {
           now known as ssai
         </motion.p>
       </div>
-      <img 
-        src="/superserverai-logo.png" 
-        className="w-full h-full object-fit m-0" 
+      <img
+        src="/superserverai-logo.png"
+        className="w-full h-full object-fit m-0"
         alt="logo"
       />
     </div>
@@ -229,12 +275,10 @@ const About: React.FC = () => {
       <GifContainer/>
     </div>
 
-  {/* TweetEmbedContainer - bottom-right corner */}
   <div className="absolute bottom-[3%] right-0">
     <TweetEmbedContainer/>
   </div>
 
-  {/* Github logo - left to TweetEmbedContainer */}
   <div
     className="absolute bottom-[2%] right-[29%] w-[220px] h-[220px] cursor-pointer"
     onClick={handleGithubClick}
@@ -257,17 +301,14 @@ const About: React.FC = () => {
     />
   </div>
 
-  {/* QuoteBlock - left to Github */}
   <div className="absolute bottom-[46%] right-[20%]">
     <QuoteBlock/>
   </div>
 
-  {/* SkillsGrid - center, slightly above QuoteBlock */}
   <div className="absolute top-[48%] left-[90%] transform -translate-x-1/2 -translate-y-1/2">
     <SkillsGrid/>
   </div>
 
-  {/* BookDisplay - bottom-left corner */}
   <div className="absolute bottom-[18%] left-0">
     <BookDisplay/>
   </div>
@@ -278,11 +319,11 @@ const About: React.FC = () => {
   >
         <motion.p
           initial={{ y: 20, opacity: 0 }}
-          animate={{ 
+          animate={{
             y: isNotionHovered ? 0 : 20,
             opacity: isNotionHovered ? 1 : 0
           }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 500,
             damping: 30
