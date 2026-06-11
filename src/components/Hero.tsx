@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 text-text font-body text-base md:text-lg">
         <div className="space-y-2 text-justify">
           <p>
-            I'm a cse grad, based out of Mumbai, specialising in agentic systems and deep learning applications.
+            I'm a cse grad, based out of Mumbai. I've worked at <a href="https://x.com/upsurgelabs?lang=en" className="underline" target="_blank" rel="noopener noreferrer">UpsurgeLabs</a> and <a href="https://0xppl.com/" className="underline" target="_blank" rel="noopener noreferrer">0xPPL</a>, specialising in agentic systems and deep learning applications.
           </p>
         </div>
         <div className="space-y-2 text-justify">
