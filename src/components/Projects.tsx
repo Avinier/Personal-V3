@@ -27,7 +27,7 @@ const hexToRgb = (hex) => {
 
     return (
       <div
-        className="bg-gray p-6 cursor-pointer relative"
+        className="bg-gray p-6 cursor-pointer relative h-[205px] md:h-[185px] overflow-hidden flex flex-col"
         style={{
           boxShadow: dynamicBoxShadow,
           transition: 'box-shadow 0.3s ease',
@@ -42,8 +42,8 @@ const hexToRgb = (hex) => {
           className="absolute top-2 right-2 w-4 h-4"
         />
         <p className="text-xs font-body text-darkgray mb-1">{project.year}</p>
-        <h3 className="text-lg text-text font-heading mb-2">{project.name}</h3>
-        <p className="text-darkgray font-body">{project.desc}</p>
+        <h3 className="text-lg text-text font-heading mb-2 leading-snug">{project.name}</h3>
+        <p className="text-darkgray font-body leading-relaxed">{project.desc}</p>
       </div>
     );
   };
