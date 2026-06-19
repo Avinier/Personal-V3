@@ -91,7 +91,7 @@ const hexToRgb = (hex) => {
         const handleMouseLeave = () => {
             setHoveredYear(null);
             if (!clickedYear) {
-                handleYearChange('All');
+                handleYearChange('Recent');
                 ballY.set(0);
             }
         };
@@ -170,13 +170,34 @@ const projectsArr = [
       year: 2026
     },
     {
+      name: "superserverai-landing-v3",
+      desc: "Latest landing page iteration for SuperServerAI",
+      github: "https://github.com/Avinier/superserverai-landing-v3",
+      color: "#ff006f",
+      year: 2026
+    },
+    {
       name: "greenlit",
       desc: "OpenAI Engineers Day Hackathon Submission",
       github: "https://github.com/Avinier/greenlit",
       color: "#00b7ff",
       year: 2026
     },
+    {
+      name: "amd",
+      desc: "A 2026 experimental project from my GitHub",
+      github: "https://github.com/Avinier/amd",
+      color: "#00ff33",
+      year: 2026
+    },
     // 2025
+    {
+      name: "superserverai-frontend-v1",
+      desc: "Frontend v1 for SuperServerAI",
+      github: "https://github.com/Avinier/superserverai-frontend-v1",
+      color: "#ffbb00",
+      year: 2025
+    },
     {
       name: "heimdall",
       desc: "A specialized agent for automated VAPT (vulnerability analysis and penetration testing)",
@@ -189,6 +210,20 @@ const projectsArr = [
       desc: "A specialised agentic system for codebase analysis. Think of it as plug-n-play Claude Code",
       github: "https://github.com/Avinier/qrooper",
       color: "#00ff33",
+      year: 2025
+    },
+    {
+      name: "ssai-landing-page-v3",
+      desc: "Landing page iteration for SSAI",
+      github: "https://github.com/Avinier/ssai-landing-page-v3",
+      color: "#ffbb00",
+      year: 2025
+    },
+    {
+      name: "superserverai-frontend",
+      desc: "Remix frontend app for SuperServerAI",
+      github: "https://github.com/Avinier/superserverai-frontend",
+      color: "#00b7ff",
       year: 2025
     },
     {
@@ -263,6 +298,20 @@ const projectsArr = [
       year: 2024
     },
     {
+      name: "superserver-ai",
+      desc: "Manage, scale and secure your projects with AI",
+      github: "https://github.com/Avinier/superserver-ai",
+      color: "#ff006f",
+      year: 2024
+    },
+    {
+      name: "SuperServerAI-LandingPage",
+      desc: "Landing page for SuperServerAI",
+      github: "https://github.com/Avinier/SuperServerAI-LandingPage",
+      color: "#00b7ff",
+      year: 2024
+    },
+    {
       name: "FastAI-Implementations",
       desc: "My own implementations of Fast.ai lessons",
       github: "https://github.com/Avinier/FastAI-Implementations",
@@ -283,19 +332,30 @@ const projectsArr = [
       color: "#00ff33",
       year: 2024
     },
+    {
+      name: "smart-dumbell",
+      desc: "IMU based sensor project",
+      github: "https://github.com/Avinier/smart-dumbell",
+      color: "#ffbb00",
+      year: 2024
+    },
   ];
 
+  const RECENT_LIMIT = 9;
+  const RECENT_INITIAL_LIMIT = 6;
+
   const Projects = () => {
-    const [projects, setProjects] = useState(projectsArr);
-    const [selectedYear, setSelectedYear] = useState('All');
-    const years = ['All', ...new Set(projectsArr.map(p => p.year))].sort();
+    const [selectedYear, setSelectedYear] = useState('Recent');
+    const [showAllRecent, setShowAllRecent] = useState(false);
+    const years = ['Recent', ...Array.from(new Set(projectsArr.map(p => p.year))).sort((a, b) => b - a)];
+    const recentProjects = projectsArr.slice(0, RECENT_LIMIT);
+    const projects = selectedYear === 'Recent'
+      ? recentProjects.slice(0, showAllRecent ? RECENT_LIMIT : RECENT_INITIAL_LIMIT)
+      : projectsArr.filter(project => project.year === Number(selectedYear));
+    const canShowMore = selectedYear === 'Recent' && !showAllRecent && recentProjects.length > RECENT_INITIAL_LIMIT;
 
     useEffect(() => {
-      if (selectedYear === 'All') {
-        setProjects(projectsArr);
-      } else {
-        setProjects(projectsArr.filter(project => project.year === Number(selectedYear)));
-      }
+      setShowAllRecent(false);
     }, [selectedYear]);
 
     return (
@@ -309,6 +369,15 @@ const projectsArr = [
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow md:mr-8">
               <ProjectsGrid projects={projects} />
+              {canShowMore && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllRecent(true)}
+                  className="mt-8 font-heading text-sm text-text border border-gray px-4 py-2 hover:bg-gray transition-colors"
+                >
+                  show more
+                </button>
+              )}
             </div>
             <div className="hidden md:block w-16 h-fit mt-20">
               <TimelineSlider years={years} onChange={setSelectedYear} />
