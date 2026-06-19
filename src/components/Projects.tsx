@@ -370,13 +370,15 @@ const projectsArr = [
             <div className="flex-grow md:mr-8">
               <ProjectsGrid projects={projects} />
               {canShowMore && (
-                <button
-                  type="button"
-                  onClick={() => setShowAllRecent(true)}
-                  className="mt-8 font-heading text-sm text-text border border-gray px-4 py-2 hover:bg-gray transition-colors"
-                >
-                  show more
-                </button>
+                <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllRecent(true)}
+                    className="font-heading text-sm text-text hover:text-darkgray transition-colors"
+                  >
+                    show more
+                  </button>
+                </div>
               )}
             </div>
             <div className="hidden md:block w-16 h-fit mt-20">
