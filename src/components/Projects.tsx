@@ -211,7 +211,7 @@ const projectsArr = [
     },
     {
       name: "heimdall",
-      desc: "A specialized agent for automated VAPT (vulnerability analysis and penetration testing)",
+      desc: "A specialized agent for automated VAPT",
       github: "https://github.com/Avinier/heimdall",
       color: "#ff006f",
       year: 2025
