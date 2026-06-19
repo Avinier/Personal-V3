@@ -71,10 +71,20 @@ const hexToRgb = (hex) => {
 
   const TimelineSlider = ({ years, onChange }) => {
     const [hoveredYear, setHoveredYear] = useState(null);
-    const [clickedYear, setClickedYear] = useState(null);
+    const [clickedYear, setClickedYear] = useState('Curr');
     const sliderRef = useRef(null);
     const ballY = useMotionValue(0);
     const smoothY = useSpring(ballY, { damping: 20, stiffness: 300 });
+
+    const getYearFromPointer = useCallback((clientY) => {
+        if (!sliderRef.current) return years[0];
+        const rect = sliderRef.current.getBoundingClientRect();
+        const y = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+        ballY.set(y);
+
+        const index = Math.round(y * (years.length - 1));
+        return years[index];
+    }, [years, ballY]);
 
     const handleYearChange = useCallback((year, isClick = false) => {
         if (isClick) {
@@ -82,67 +92,51 @@ const hexToRgb = (hex) => {
             onChange(year);
         } else {
             setHoveredYear(year);
-            if (!clickedYear) {
-                onChange(year);
-            }
+            onChange(year);
         }
-    }, [onChange, clickedYear]);
+    }, [onChange]);
 
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            if (!sliderRef.current) return;
-            const rect = sliderRef.current.getBoundingClientRect();
-            const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-            ballY.set(y);
+    const handleSliderMove = useCallback((e) => {
+        handleYearChange(getYearFromPointer(e.clientY));
+    }, [getYearFromPointer, handleYearChange]);
 
-            const index = Math.round(y * (years.length - 1));
-            handleYearChange(years[index]);
-        };
+    const handleSliderLeave = useCallback(() => {
+        setHoveredYear(null);
+        onChange(clickedYear);
+        const clickedIndex = Math.max(0, years.indexOf(clickedYear));
+        ballY.set(clickedIndex / Math.max(1, years.length - 1));
+    }, [ballY, clickedYear, onChange, years]);
 
-        const handleMouseLeave = () => {
-            setHoveredYear(null);
-            if (!clickedYear) {
-                handleYearChange('Curr');
-                ballY.set(0);
-            }
-        };
-
-        const handleClick = (e) => {
-            const rect = sliderRef.current.getBoundingClientRect();
-            const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-            ballY.set(y);
-
-            const index = Math.round(y * (years.length - 1));
-            handleYearChange(years[index], true);
-        };
-
-        const slider = sliderRef.current;
-        if (slider) {
-            slider.addEventListener('mousemove', handleMouseMove);
-            slider.addEventListener('mouseleave', handleMouseLeave);
-            slider.addEventListener('click', handleClick);
-        }
-
-        return () => {
-            if (slider) {
-                slider.removeEventListener('mousemove', handleMouseMove);
-                slider.removeEventListener('mouseleave', handleMouseLeave);
-                slider.removeEventListener('click', handleClick);
-            }
-        };
-    }, [years, ballY, handleYearChange, clickedYear]);
+    const handleSliderClick = useCallback((e) => {
+        handleYearChange(getYearFromPointer(e.clientY), true);
+    }, [getYearFromPointer, handleYearChange]);
 
     const ballPosition = useTransform(smoothY, [0, 1], ['0%', '100%']);
 
     return (
-        <div className="h-full flex items-center justify-center relative" ref={sliderRef}>
-            <div className="h-64 w-1 bg-gray-300 rounded-full relative cursor-pointer">
+        <div className="h-full flex items-center justify-center relative">
+            <div
+                className="h-64 w-8 relative cursor-pointer"
+                ref={sliderRef}
+                onMouseMove={handleSliderMove}
+                onMouseLeave={handleSliderLeave}
+                onClick={handleSliderClick}
+            >
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[3px] rounded-full h-full bg-gray" />
                 {years.map((year, index) => (
                     <div
                         key={year}
-                        className="w-3 h-3 bg-background border-2 border-gray rounded-full absolute left-1/2 transform -translate-x-1/2"
+                        className="w-3 h-3 bg-background border-2 border-gray rounded-full absolute left-1/2 transform -translate-x-1/2 z-10"
                         style={{ top: `${(index / (years.length - 1)) * 100}%` }}
+                        onMouseEnter={() => {
+                            ballY.set(index / Math.max(1, years.length - 1));
+                            handleYearChange(year);
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            ballY.set(index / Math.max(1, years.length - 1));
+                            handleYearChange(year, true);
+                        }}
                     />
                 ))}
                 <motion.div
