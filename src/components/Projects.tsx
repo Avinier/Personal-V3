@@ -50,11 +50,22 @@ const hexToRgb = (hex) => {
 
   const ProjectsGrid = ({ projects }) => {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatePresence initial={false}>
         {projects.map((project, index) => (
-          <ProjectCard key={index} project={project} />
+          <motion.div
+            key={project.github}
+            layout
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1], delay: index >= CURR_INITIAL_LIMIT ? (index - CURR_INITIAL_LIMIT) * 0.04 : 0 }}
+          >
+            <ProjectCard project={project} />
+          </motion.div>
         ))}
-      </div>
+        </AnimatePresence>
+      </motion.div>
     );
   };
 
@@ -91,7 +102,7 @@ const hexToRgb = (hex) => {
         const handleMouseLeave = () => {
             setHoveredYear(null);
             if (!clickedYear) {
-                handleYearChange('Recent');
+                handleYearChange('Curr');
                 ballY.set(0);
             }
         };
@@ -341,21 +352,21 @@ const projectsArr = [
     },
   ];
 
-  const RECENT_LIMIT = 9;
-  const RECENT_INITIAL_LIMIT = 6;
+  const CURR_LIMIT = 9;
+  const CURR_INITIAL_LIMIT = 6;
 
   const Projects = () => {
-    const [selectedYear, setSelectedYear] = useState('Recent');
-    const [showAllRecent, setShowAllRecent] = useState(false);
-    const years = ['Recent', ...Array.from(new Set(projectsArr.map(p => p.year))).sort((a, b) => b - a)];
-    const recentProjects = projectsArr.slice(0, RECENT_LIMIT);
-    const projects = selectedYear === 'Recent'
-      ? recentProjects.slice(0, showAllRecent ? RECENT_LIMIT : RECENT_INITIAL_LIMIT)
+    const [selectedYear, setSelectedYear] = useState('Curr');
+    const [showAllCurr, setShowAllCurr] = useState(false);
+    const years = ['Curr', ...Array.from(new Set(projectsArr.map(p => p.year))).sort((a, b) => b - a)];
+    const currProjects = projectsArr.slice(0, CURR_LIMIT);
+    const projects = selectedYear === 'Curr'
+      ? currProjects.slice(0, showAllCurr ? CURR_LIMIT : CURR_INITIAL_LIMIT)
       : projectsArr.filter(project => project.year === Number(selectedYear));
-    const canShowMore = selectedYear === 'Recent' && !showAllRecent && recentProjects.length > RECENT_INITIAL_LIMIT;
+    const canToggleCurr = selectedYear === 'Curr' && currProjects.length > CURR_INITIAL_LIMIT;
 
     useEffect(() => {
-      setShowAllRecent(false);
+      setShowAllCurr(false);
     }, [selectedYear]);
 
     return (
@@ -369,14 +380,14 @@ const projectsArr = [
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow md:mr-8">
               <ProjectsGrid projects={projects} />
-              {canShowMore && (
+              {canToggleCurr && (
                 <div className="mt-8 flex justify-center">
                   <button
                     type="button"
-                    onClick={() => setShowAllRecent(true)}
-                    className="font-heading text-sm text-text hover:text-darkgray transition-colors"
+                    onClick={() => setShowAllCurr((value) => !value)}
+                    className="font-heading text-sm text-darkgray hover:text-text transition-colors duration-300"
                   >
-                    show more
+                    {showAllCurr ? 'less' : 'more'}
                   </button>
                 </div>
               )}
