@@ -295,7 +295,7 @@ const projectsArr = [
       desc: "An AI employee for your devops tasks",
       github: "https://getssai.com",
       color: "#ffbb00",
-      year: 2024
+      year: 2026
     },
     {
       name: "superserver-ai",
